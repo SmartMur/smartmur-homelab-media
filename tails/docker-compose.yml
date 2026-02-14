@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+
+###############################################
+# TSDPROXY (Tailscale Reverse Proxy)
+###############################################
+
+  tsdproxy:
+    image: almeidapaulopt/tsdproxy:latest
+    container_name: tsdproxy-tails
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - tsdproxydata:/data
+    environment:
+      - TSDPROXY_AUTHKEY=${TSDPROXY_AUTHKEY}
+      - TSDPROXY_HOSTNAME=${TSDPROXY_HOSTNAME}
+      - DOCKER_HOST=unix:///var/run/docker.sock
+
+###############################################
+# STIRLING PDF (PDF Processor)
+###############################################
+
+  stirling-pdf:
+    image: frooodle/s-pdf:latest
+    container_name: stirling-pdf
+    restart: unless-stopped
+    ports:
+      - ${STIRLING_PDF_PORT:-8080}:8080
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-America/Toronto}
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "pdf"
+
+###############################################
+# AUDIOBOOKSHELF (Audiobook Server)
+###############################################
+
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
+    restart: unless-stopped
+    ports:
+      - ${AUDIOBOOKSHELF_PORT:-8081}:80
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/audiobookshelf/config:/config
+      - ./appdata/audiobookshelf/metadata:/metadata
+      - /data/media/music:/audiobooks:ro
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "audiobooks"
+
+###############################################
+# SEARXNG (Privacy Search Engine)
+###############################################
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: unless-stopped
+    ports:
+      - ${SEARXNG_PORT:-8082}:8080
+    environment:
+      - SEARXNG_BASE_URL=https://search.${TSDPROXY_HOSTNAME}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/searxng:/etc/searxng
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "search"
+    depends_on:
+      - valkey
+
+###############################################
+# VALKEY (Redis Cache for SearXNG)
+###############################################
+
+  valkey:
+    image: eqalpha/keydb:latest
+    container_name: valkey-tails
+    restart: unless-stopped
+    volumes:
+      - valkey-data:/data
+    command: keydb-server /etc/keydb/keydb.conf
+
+###############################################
+# NETWORK
+###############################################
+
+networks:
+  default:
+    name: tails_network
+
+###############################################
+# VOLUMES
+###############################################
+
+volumes:
+  tsdproxydata:
+  valkey-data:

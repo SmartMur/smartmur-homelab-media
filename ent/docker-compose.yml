@@ -1,0 +1,295 @@
+###############################################
+# Home Media Server - ent/ Stack
+# Secure Configuration - All secrets in .env
+###############################################
+
+version: '3.8'
+
+###############################################
+# Common Keys for all apps
+###############################################
+
+x-common-keys: &common-keys
+  restart: unless-stopped
+  logging:
+    driver: json-file
+  environment:
+    PUID: ${PUID:-1000}
+    PGID: ${PGID:-1000}
+    TZ: ${TZ:-America/Toronto}
+  dns:
+    - ${DNS_1:-1.1.1.1}
+    - ${DNS_2:-1.0.0.1}
+
+services:
+
+###############################################
+# TSDPROXY (Tailscale Reverse Proxy)
+###############################################
+
+  tsdproxy:
+    image: almeidapaulopt/tsdproxy:latest
+    container_name: tsdproxy
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - tsdproxydata:/data
+    environment:
+      - TSDPROXY_AUTHKEY=${TSDPROXY_AUTHKEY}
+      - TSDPROXY_HOSTNAME=${TSDPROXY_HOSTNAME}
+      - DOCKER_HOST=unix:///var/run/docker.sock
+
+###############################################
+# RADARR (Movies)
+###############################################
+
+  radarr:
+    <<: *common-keys
+    container_name: radarr
+    image: ghcr.io/hotio/radarr:latest
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/radarr:/config
+      - /data/media:/data/media
+      - /data/torrents:/data/torrents
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "radarr"
+
+###############################################
+# SONARR (TV Shows)
+###############################################
+
+  sonarr:
+    <<: *common-keys
+    container_name: sonarr
+    image: ghcr.io/hotio/sonarr:latest
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/sonarr:/config
+      - /data/media:/data/media
+      - /data/torrents:/data/torrents
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "sonarr"
+
+###############################################
+# LIDARR (Music)
+###############################################
+
+  lidarr:
+    <<: *common-keys
+    container_name: lidarr
+    image: ghcr.io/hotio/lidarr:latest
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/lidarr:/config
+      - /data/media:/data/media
+      - /data/torrents:/data/torrents
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "lidarr"
+
+###############################################
+# BAZARR (Subtitles)
+###############################################
+
+  bazarr:
+    <<: *common-keys
+    container_name: bazarr
+    image: ghcr.io/hotio/bazarr:latest
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/bazarr:/config
+      - /data/media:/data/media
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "bazarr"
+
+###############################################
+# PROWLARR (Indexer Manager)
+###############################################
+
+  prowlarr:
+    <<: *common-keys
+    container_name: prowlarr
+    image: ghcr.io/hotio/prowlarr:latest
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/prowlarr:/config
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "prowlarr"
+
+###############################################
+# READARR (Books/Ebooks Management)
+# Integrates with Prowlarr, Radarr, Sonarr ecosystem
+# Authentication: API key required for external access
+###############################################
+
+  readarr:
+    <<: *common-keys
+    container_name: readarr
+    image: ghcr.io/hotio/readarr:latest
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/readarr:/config
+      - /data/media:/data/media
+      - /data/torrents:/data/torrents
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "readarr"
+
+###############################################
+# QBITTORRENT (Torrent Client)
+# NOTE: WebUI accessible ONLY via Tailscale (TSDProxy)
+# Authentication: Built-in with admin:adminpass (CHANGE ON FIRST RUN)
+# Set Tools -> Options -> Web UI -> Authentication to "Require login"
+###############################################
+
+  qbittorrent:
+    <<: *common-keys
+    container_name: qbittorrent
+    image: ghcr.io/hotio/qbittorrent:latest
+    environment:
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/qbittorrent:/config
+      - /data/torrents:/data/torrents
+      - /data/media:/data/media
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "qbittorrent"
+    # SECURITY: Torrent ports NOT exposed. Use internal network only.
+    # If external torrenting needed, use VPN inside container or firewall rules.
+
+###############################################
+# JELLYFIN (Media Server)
+# NOTE: WebUI accessible ONLY via Tailscale (TSDProxy)
+# Authentication: Requires user account setup on first run
+###############################################
+
+  jellyfin:
+    <<: *common-keys
+    container_name: jellyfin
+    image: ghcr.io/hotio/jellyfin:latest
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/jellyfin:/config
+      - /data/media:/data/media:ro
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "jellyfin"
+    # SECURITY: No ports exposed. Access via Tailscale only.
+
+###############################################
+# JELLYSEERR (Request/Discovery Interface)
+# Works with Jellyfin, Radarr, Sonarr, Readarr
+# Allows users to request movies/shows/music without direct *arr access
+# Authentication: User accounts (setup on first run)
+###############################################
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    restart: unless-stopped
+    environment:
+      LOG_LEVEL: "info"
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-America/Toronto}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/jellyseerr:/app/config
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "jellyseerr"
+    depends_on:
+      - jellyfin
+      - radarr
+      - sonarr
+    # SECURITY: No ports exposed. Access via Tailscale only.
+
+###############################################
+# PLEX (Premium Media Server)
+# NOTE: Requires Plex account (paid subscription)
+# Authentication: Plex account login (email/password)
+# WebUI accessible ONLY via Tailscale (TSDProxy)
+# https://www.plex.tv/claim/ to claim server on first run
+###############################################
+
+  plex:
+    image: plexinc/pms-docker:latest
+    container_name: plex
+    restart: unless-stopped
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-America/Toronto}
+      PLEX_CLAIM: ${PLEX_CLAIM_TOKEN}
+      ADVERTISE_IP: http://${TSDPROXY_HOSTNAME}:32400
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/plex:/config
+      - /data/media:/data/media:ro
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "plex"
+    # SECURITY: No ports exposed. Access via Tailscale only.
+    # Internal communication only on arr_network.
+
+###############################################
+# TERMIX (Web Terminal)
+# SECURITY: CRITICAL - No authentication by default
+# REQUIREMENT: Must be behind reverse proxy with auth or disable in production
+# See SETUP.md for Authelia integration OR use local-only network access
+###############################################
+
+  termix:
+    image: ghcr.io/lukegus/termix:latest
+    container_name: termix
+    restart: unless-stopped
+    volumes:
+      - ./appdata/termix:/app/data
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "termix"
+    # WARNING: Tailscale access only. Do NOT expose to internet.
+    # Consider disabling if not actively needed.
+
+###############################################
+# DOCKHAND (Docker UI)
+# SECURITY: CRITICAL - No authentication by default
+# REQUIREMENT: Must be behind reverse proxy with auth or disable in production
+# See SETUP.md for Authelia integration
+###############################################
+
+  dockhand:
+    image: fnsys/dockhand:latest
+    container_name: dockhand
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./appdata/dockhand:/app/data
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.name: "dockhand"
+    # WARNING: Provides full Docker API access. Tailscale-only access mandatory.
+    # Consider disabling in favor of CLI management if possible.
+
+###############################################
+# NETWORK
+###############################################
+
+networks:
+  default:
+    name: arr_network
+
+###############################################
+# VOLUMES
+###############################################
+
+volumes:
+  tsdproxydata:

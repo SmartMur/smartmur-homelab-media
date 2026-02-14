@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  termix:
+    image: ghcr.io/lukegus/termix:latest
+    container_name: termix-standalone
+    restart: unless-stopped
+    ports:
+      - ${TERMIX_PORT:-8081}:8080
+    volumes:
+      - ./appdata/termix:/app/data
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-America/Toronto}

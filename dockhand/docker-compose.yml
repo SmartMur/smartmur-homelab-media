@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  dockhand:
+    image: fnsys/dockhand:latest
+    container_name: dockhand-standalone
+    restart: unless-stopped
+    ports:
+      - ${DOCKHAND_PORT:-3000}:3000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./appdata/dockhand:/app/data
+    environment:
+      - NODE_ENV=production
