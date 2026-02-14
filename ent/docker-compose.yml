@@ -3,7 +3,7 @@
 # Secure Configuration - All secrets in .env
 ###############################################
 
-version: '3.8'
+version: '3.10'
 
 ###############################################
 # Common Keys for all apps
