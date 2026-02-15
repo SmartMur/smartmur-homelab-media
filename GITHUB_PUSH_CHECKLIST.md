@@ -1,4 +1,4 @@
-# GitHub Push Checklist ✅
+# GitHub Push Checklist 
 
 Before pushing to GitHub, verify everything is secure and complete.
 
@@ -13,49 +13,49 @@ Before pushing to GitHub, verify everything is secure and complete.
 
 **Verify with:**
 ```bash
-git status                          # Should show NO .env or appdata
-git ls-files | grep -i "secret\|key\|password"  # Should return nothing
+git status # Should show NO .env or appdata
+git ls-files | grep -i "secret\|key\|password" # Should return nothing
 ```
 
 ## Files to Be Pushed
 
-✅ These WILL be on GitHub:
+ These WILL be on GitHub:
 
 ```
-├── README.md                    # Overview & quick start
-├── INDEX.md                     # Documentation hub
-├── DEPLOYMENT.md                # Fresh server setup
-├── SECURITY.md                  # Service authentication
-├── COMMANDS.md                  # Docker/Linux reference
-├── CHECKLIST.md                 # Printable checklist
-├── SETUP.md                     # Legacy reference
-├── QUICKREF.md                  # Quick lookup
-├── GITHUB_SETUP.md              # GitHub instructions
-├── health_check.sh              # Health monitoring script
-├── .env.example                 # Configuration template
-├── .gitignore                   # Security file
-├── .github/
-│   ├── README.md
-│   └── DEPLOYMENT.md
-├── ent/
-│   ├── docker-compose.yml       # Main stack
-│   └── appdata/ (EXCLUDED)      # ← NOT pushed
-├── dockhand/
-│   └── docker-compose.yml
-├── tails/
-│   └── docker-compose.yml
-└── termix/
-    └── docker-compose.yml
+ README.md # Overview & quick start
+ INDEX.md # Documentation hub
+ DEPLOYMENT.md # Fresh server setup
+ SECURITY.md # Service authentication
+ COMMANDS.md # Docker/Linux reference
+ CHECKLIST.md # Printable checklist
+ SETUP.md # Legacy reference
+ QUICKREF.md # Quick lookup
+ GITHUB_SETUP.md # GitHub instructions
+ health_check.sh # Health monitoring script
+ .env.example # Configuration template
+ .gitignore # Security file
+ .github/
+ README.md
+ DEPLOYMENT.md
+ ent/
+ docker-compose.yml # Main stack
+ appdata/ (EXCLUDED) # ← NOT pushed
+ dockhand/
+ docker-compose.yml
+ tails/
+ docker-compose.yml
+ termix/
+ docker-compose.yml
 ```
 
-❌ These will NOT be on GitHub (protected):
+ These will NOT be on GitHub (protected):
 
 ```
-├── .env                         # Your actual secrets
-├── ent/appdata/                 # Service configs
-├── dockhand_data/               # Docker UI data
-├── termix-data/                 # Terminal data
-└── Any .gitignore'd files
+ .env # Your actual secrets
+ ent/appdata/ # Service configs
+ dockhand_data/ # Docker UI data
+ termix-data/ # Terminal data
+ Any .gitignore'd files
 ```
 
 ## GitHub Repository Setup
@@ -68,23 +68,23 @@ git ls-files | grep -i "secret\|key\|password"  # Should return nothing
 ### After Creating Repo:
 
 1. **Get repository URL from GitHub**
-   - HTTPS: `https://github.com/YOUR_USERNAME/home_media.git`
-   - SSH: `git@github.com:YOUR_USERNAME/home_media.git` (if SSH configured)
+ - HTTPS: `https://github.com/YOUR_USERNAME/home_media.git`
+ - SSH: `git@github.com:YOUR_USERNAME/home_media.git` (if SSH configured)
 
 2. **Connect locally:**
-   ```bash
-   cd ~/home_media
-   git remote add origin https://github.com/YOUR_USERNAME/home_media.git
-   git branch -m master main
-   git push -u origin main
-   ```
+ ```bash
+ cd ~/home_media
+ git remote add origin https://github.com/YOUR_USERNAME/home_media.git
+ git branch -m master main
+ git push -u origin main
+ ```
 
 3. **Verify on GitHub:**
-   - [ ] Visit https://github.com/YOUR_USERNAME/home_media
-   - [ ] See all documentation files
-   - [ ] See docker-compose files
-   - [ ] DO NOT see .env file
-   - [ ] DO NOT see appdata/ folder
+ - [ ] Visit https://github.com/YOUR_USERNAME/home_media
+ - [ ] See all documentation files
+ - [ ] See docker-compose files
+ - [ ] DO NOT see .env file
+ - [ ] DO NOT see appdata/ folder
 
 ## GitHub Repository Settings
 
@@ -231,7 +231,7 @@ git push origin v1.0.0
 
 ---
 
-✅ **READY TO PUSH!**
+ **READY TO PUSH!**
 
 All files are secure, documented, and ready for public GitHub.
 
@@ -239,6 +239,6 @@ All files are secure, documented, and ready for public GitHub.
 
 ---
 
-**Security Status**: 🔒 ALL SECRETS PROTECTED  
-**Documentation Status**: 📚 3,110+ LINES COMPLETE  
-**Production Status**: ✅ READY FOR DEPLOYMENT
+**Security Status**: ALL SECRETS PROTECTED 
+**Documentation Status**: 3,110+ LINES COMPLETE 
+**Production Status**: READY FOR DEPLOYMENT

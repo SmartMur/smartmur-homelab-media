@@ -88,7 +88,7 @@ sudo ufw status
 # Result should show:
 # Status: active
 # Default: deny (incoming), allow (outgoing)
-# 22/tcp    ALLOW    Anywhere
+# 22/tcp ALLOW Anywhere
 ```
 
 **Key Principle**: Since all services are behind Tailscale, UFW just needs to allow SSH and block everything else.
@@ -137,12 +137,12 @@ cp .env.example .env
 nano .env
 
 # Required settings to update:
-# PUID=1000              # Run: id -u
-# PGID=1000              # Run: id -g
-# TZ=America/Toronto     # Your timezone
-# TSDPROXY_AUTHKEY=...  # From https://login.tailscale.com/admin/settings/keys
+# PUID=1000 # Run: id -u
+# PGID=1000 # Run: id -g
+# TZ=America/Toronto # Your timezone
+# TSDPROXY_AUTHKEY=... # From https://login.tailscale.com/admin/settings/keys
 # TSDPROXY_HOSTNAME=... # From: tailscale ip -4
-# PLEX_CLAIM_TOKEN=...  # From: https://www.plex.tv/claim/ (optional, 4min lifespan)
+# PLEX_CLAIM_TOKEN=... # From: https://www.plex.tv/claim/ (optional, 4min lifespan)
 ```
 
 ### Step 2.3: Prepare Application Data Directories
@@ -178,20 +178,20 @@ docker compose ps
 
 **Expected output:**
 ```
-NAME                COMMAND             STATUS              PORTS
-radarr              "/init"             Up 2 minutes
-sonarr              "/init"             Up 2 minutes
-lidarr              "/init"             Up 2 minutes
-readarr             "/init"             Up 2 minutes
-prowlarr            "/init"             Up 2 minutes
-qbittorrent         "/init"             Up 2 minutes
-jellyfin            "/init"             Up 2 minutes
-jellyseerr          "node server.js"    Up 2 minutes
-plex                "/init"             Up 2 minutes
-bazarr              "/init"             Up 2 minutes
-tsdproxy            "/app/tsdproxy"     Up 2 minutes
-termix              "node server.js"    Up 2 minutes
-dockhand            "node /app/index"   Up 2 minutes
+NAME COMMAND STATUS PORTS
+radarr "/init" Up 2 minutes
+sonarr "/init" Up 2 minutes
+lidarr "/init" Up 2 minutes
+readarr "/init" Up 2 minutes
+prowlarr "/init" Up 2 minutes
+qbittorrent "/init" Up 2 minutes
+jellyfin "/init" Up 2 minutes
+jellyseerr "node server.js" Up 2 minutes
+plex "/init" Up 2 minutes
+bazarr "/init" Up 2 minutes
+tsdproxy "/app/tsdproxy" Up 2 minutes
+termix "node server.js" Up 2 minutes
+dockhand "node /app/index" Up 2 minutes
 ```
 
 ### Step 3.2: Verify Tailscale Connection
@@ -289,11 +289,11 @@ cd ~/home_media/ent/
 # 1. Container Status
 echo "[1] Container Status:"
 docker compose ps | tail -n +2 | while read line; do
-    if [[ $line == *"Up"* ]]; then
-        echo "  ✅ $(echo $line | awk '{print $1}') is running"
-    else
-        echo "  ❌ $(echo $line | awk '{print $1}') is DOWN"
-    fi
+ if [[ $line == *"Up"* ]]; then
+ echo " $(echo $line | awk '{print $1}') is running"
+ else
+ echo " $(echo $line | awk '{print $1}') is DOWN"
+ fi
 done
 
 echo ""
@@ -303,10 +303,10 @@ echo "[2] Storage Space:"
 USED=$(df /data | awk 'NR==2 {print $3}')
 TOTAL=$(df /data | awk 'NR==2 {print $2}')
 PERCENT=$(df /data | awk 'NR==2 {print $5}')
-echo "  Used: $USED / $TOTAL ($PERCENT)"
+echo " Used: $USED / $TOTAL ($PERCENT)"
 
 if [[ ${PERCENT%\%} -gt 80 ]]; then
-    echo "  ⚠️  Warning: Disk usage above 80%"
+ echo " Warning: Disk usage above 80%"
 fi
 
 echo ""
@@ -314,15 +314,15 @@ echo ""
 # 3. Network Connectivity
 echo "[3] Network Connectivity:"
 if timeout 2 docker compose exec radarr ping -c 1 qbittorrent > /dev/null 2>&1; then
-    echo "  ✅ Radarr → qBittorrent: OK"
+ echo " Radarr → qBittorrent: OK"
 else
-    echo "  ❌ Radarr → qBittorrent: FAILED"
+ echo " Radarr → qBittorrent: FAILED"
 fi
 
 if timeout 2 docker compose exec jellyseerr ping -c 1 radarr > /dev/null 2>&1; then
-    echo "  ✅ Jellyseerr → Radarr: OK"
+ echo " Jellyseerr → Radarr: OK"
 else
-    echo "  ❌ Jellyseerr → Radarr: FAILED"
+ echo " Jellyseerr → Radarr: FAILED"
 fi
 
 echo ""
@@ -330,15 +330,15 @@ echo ""
 # 4. Tailscale Status
 echo "[4] Tailscale Connection:"
 if sudo tailscale status | grep -q "Running"; then
-    echo "  ✅ Tailscale: Running"
+ echo " Tailscale: Running"
 else
-    echo "  ❌ Tailscale: NOT running"
+ echo " Tailscale: NOT running"
 fi
 
 if docker compose logs tsdproxy | grep -q "Connected"; then
-    echo "  ✅ TSDProxy: Connected"
+ echo " TSDProxy: Connected"
 else
-    echo "  ❌ TSDProxy: Connection check - see logs"
+ echo " TSDProxy: Connection check - see logs"
 fi
 
 echo ""
@@ -360,16 +360,16 @@ chmod +x ~/home_media/health_check.sh
 ### Access Your Services
 
 1. **Get your Tailscale IP:**
-   ```bash
-   tailscale ip -4
-   # Example: 100.123.45.67
-   ```
+ ```bash
+ tailscale ip -4
+ # Example: 100.123.45.67
+ ```
 
 2. **Access services:**
-   - Jellyseerr (setup first): `https://100.123.45.67:port` (TSDProxy handles routing)
-   - Radarr: `https://100.123.45.67:port`
-   - Sonarr: `https://100.123.45.67:port`
-   - etc.
+ - Jellyseerr (setup first): `https://100.123.45.67:port` (TSDProxy handles routing)
+ - Radarr: `https://100.123.45.67:port`
+ - Sonarr: `https://100.123.45.67:port`
+ - etc.
 
 3. **Follow security setup:** See [SECURITY.md](SECURITY.md) for authentication steps per service
 
@@ -533,14 +533,14 @@ mkdir -p $BACKUP_DIR
 
 # Backup appdata
 tar -czf $BACKUP_DIR/appdata_$(date +%Y%m%d_%H%M%S).tar.gz \
-  ~/home_media/ent/appdata/
+ ~/home_media/ent/appdata/
 
 # Backup .env (encrypted)
 gpg --symmetric .env -o $BACKUP_DIR/.env.gpg
 
 # Backup media library structure
 tar -czf $BACKUP_DIR/media_structure_$(date +%Y%m%d).tar.gz \
-  /data/ --exclude=/data/torrents
+ /data/ --exclude=/data/torrents
 
 # Cleanup old backups (keep 30 days)
 find $BACKUP_DIR -name "*.tar.gz" -mtime +30 -delete
@@ -584,25 +584,25 @@ docker compose ps
 cd ~/home_media/ent/
 
 # View everything
-docker compose ps                      # All containers
-docker compose logs -f                 # All logs
-docker compose logs -f service_name    # Specific service
+docker compose ps # All containers
+docker compose logs -f # All logs
+docker compose logs -f service_name # Specific service
 
 # Control
-docker compose up -d                   # Start all
-docker compose down                    # Stop all
-docker compose restart service_name    # Restart one
-docker compose pull && docker compose up -d  # Update everything
+docker compose up -d # Start all
+docker compose down # Stop all
+docker compose restart service_name # Restart one
+docker compose pull && docker compose up -d # Update everything
 
 # Debug
-docker compose exec service_name bash  # Enter container
-docker compose exec service_name df -h /data  # Check disk in container
-docker compose logs --tail=50 service_name    # Last 50 lines
+docker compose exec service_name bash # Enter container
+docker compose exec service_name df -h /data # Check disk in container
+docker compose logs --tail=50 service_name # Last 50 lines
 
 # System
-df -h /data                            # Disk usage
-docker stats                           # Resource usage
-tailscale status                       # Tailscale connection
+df -h /data # Disk usage
+docker stats # Resource usage
+tailscale status # Tailscale connection
 ```
 
 ---
@@ -613,10 +613,10 @@ tailscale status                       # Tailscale connection
 - **Docker Docs**: https://docs.docker.com/
 - **Tailscale Docs**: https://tailscale.com/kb/
 - **Service Documentation**:
-  - Radarr: https://radarr.video/
-  - Sonarr: https://sonarr.tv/
-  - Jellyfin: https://docs.jellyfin.org/
-  - Plex: https://support.plex.tv/
+ - Radarr: https://radarr.video/
+ - Sonarr: https://sonarr.tv/
+ - Jellyfin: https://docs.jellyfin.org/
+ - Plex: https://support.plex.tv/
 
 ---
 

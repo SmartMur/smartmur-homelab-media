@@ -6,33 +6,33 @@ Fast lookup for common commands and configurations.
 
 ```
 home_media/
-├── ent/                    # Main media server stack (10 services)
-│   ├── docker-compose.yml
-│   └── appdata/            # Config storage for all services
-├── dockhand/               # Docker UI (optional, standalone)
-├── tails/                  # Utility services (optional)
-│   └── appdata/
-├── termix/                 # Web terminal (optional, standalone)
-├── .env                    # Your secrets (NEVER commit!)
-├── .env.example            # Template (safe to commit)
-├── .gitignore              # Prevent secret commits
-├── README.md               # Overview
-├── SETUP.md                # Detailed setup guide (770+ lines)
-└── .github/
-    └── DEPLOYMENT.md       # GitHub deployment instructions
+ ent/ # Main media server stack (10 services)
+ docker-compose.yml
+ appdata/ # Config storage for all services
+ dockhand/ # Docker UI (optional, standalone)
+ tails/ # Utility services (optional)
+ appdata/
+ termix/ # Web terminal (optional, standalone)
+ .env # Your secrets (NEVER commit!)
+ .env.example # Template (safe to commit)
+ .gitignore # Prevent secret commits
+ README.md # Overview
+ SETUP.md # Detailed setup guide (770+ lines)
+ .github/
+ DEPLOYMENT.md # GitHub deployment instructions
 ```
 
 ## Essential Files
 
 | File | Purpose | Commit to Git? |
 |------|---------|---|
-| `ent/docker-compose.yml` | Main stack definition | ✅ Yes |
-| `.env` | Your secrets (auth keys, IPs) | ❌ No (in .gitignore) |
-| `.env.example` | Template for users | ✅ Yes |
-| `.gitignore` | Prevent secret commits | ✅ Yes |
-| `README.md` | Overview | ✅ Yes |
-| `SETUP.md` | Setup guide | ✅ Yes |
-| `.github/DEPLOYMENT.md` | GitHub deployment | ✅ Yes |
+| `ent/docker-compose.yml` | Main stack definition | Yes |
+| `.env` | Your secrets (auth keys, IPs) | No (in .gitignore) |
+| `.env.example` | Template for users | Yes |
+| `.gitignore` | Prevent secret commits | Yes |
+| `README.md` | Overview | Yes |
+| `SETUP.md` | Setup guide | Yes |
+| `.github/DEPLOYMENT.md` | GitHub deployment | Yes |
 
 ## Starting the Stack
 
@@ -96,15 +96,15 @@ Replace `YOUR_HOSTNAME` with your Tailscale hostname (e.g., `my-server.tail12345
 ```bash
 # Radarr
 curl -X GET "http://localhost:7878/api/v3/system/status" \
-  -H "X-Api-Key: YOUR_API_KEY"
+ -H "X-Api-Key: YOUR_API_KEY"
 
 # Sonarr
 curl -X GET "http://localhost:8989/api/v3/system/status" \
-  -H "X-Api-Key: YOUR_API_KEY"
+ -H "X-Api-Key: YOUR_API_KEY"
 
 # Lidarr
 curl -X GET "http://localhost:8686/api/v1/system/status" \
-  -H "X-Api-Key: YOUR_API_KEY"
+ -H "X-Api-Key: YOUR_API_KEY"
 ```
 
 ### Set Radarr Movie Folder
@@ -112,9 +112,9 @@ curl -X GET "http://localhost:8686/api/v1/system/status" \
 Via API:
 ```bash
 curl -X POST "http://localhost:7878/api/v3/rootfolder" \
-  -H "Content-Type: application/json" \
-  -H "X-Api-Key: YOUR_API_KEY" \
-  -d '{"path": "/data/media/movies"}'
+ -H "Content-Type: application/json" \
+ -H "X-Api-Key: YOUR_API_KEY" \
+ -d '{"path": "/data/media/movies"}'
 ```
 
 ### Prowlarr → Radarr Integration
@@ -148,12 +148,12 @@ docker-compose ps
 ```bash
 # Backup all settings (includes secrets - store securely!)
 tar -czf backup_$(date +%Y%m%d_%H%M%S).tar.gz \
-  ent/appdata \
-  .env
+ ent/appdata \
+ .env
 
 # Backup only application data (no secrets)
 tar -czf backup_$(date +%Y%m%d_%H%M%S).tar.gz \
-  ent/appdata
+ ent/appdata
 ```
 
 ### Clean Up Docker
@@ -279,9 +279,9 @@ docker-compose up -d
 1. **Setup Issues**: See [SETUP.md](SETUP.md)
 2. **Deployment**: See [.github/DEPLOYMENT.md](.github/DEPLOYMENT.md)
 3. **Service Docs**:
-   - Radarr: https://wiki.servarr.com/radarr
-   - Sonarr: https://wiki.servarr.com/sonarr
-   - Jellyfin: https://jellyfin.org/docs/
+ - Radarr: https://wiki.servarr.com/radarr
+ - Sonarr: https://wiki.servarr.com/sonarr
+ - Jellyfin: https://jellyfin.org/docs/
 4. **Docker**: https://docs.docker.com/compose/
 
 ## File Locations
@@ -289,19 +289,19 @@ docker-compose up -d
 Key configuration files inside containers:
 
 ```
-/config/                          # Service configuration
-  config.xml                      # Main config
-  logs.db                         # Recent logs
-  
-/data/media/                      # Organized media
-  movies/                         # Radarr manages
-  tv/                             # Sonarr manages
-  music/                          # Lidarr manages
-  
-/data/torrents/                   # Download staging
-  movies/                         # qBittorrent category
-  tv/
-  music/
+/config/ # Service configuration
+ config.xml # Main config
+ logs.db # Recent logs
+ 
+/data/media/ # Organized media
+ movies/ # Radarr manages
+ tv/ # Sonarr manages
+ music/ # Lidarr manages
+ 
+/data/torrents/ # Download staging
+ movies/ # qBittorrent category
+ tv/
+ music/
 ```
 
 ## Network

@@ -12,14 +12,14 @@ Complete step-by-step setup and configuration guide for the Home Media Server st
 
 ## Installation Steps
 
-### Step 1: Clone Repository
+### 1. Clone Repository
 
 ```bash
 git clone <your-repository-url> /home/lab/home_media
 cd /home/lab/home_media
 ```
 
-### Step 2: Create Environment Configuration
+### 2. Create Environment Configuration
 
 Copy the example environment file and fill in your values:
 
@@ -34,7 +34,7 @@ nano .env
 - `PUID`/`PGID`: Run `id` to get your user/group IDs
 - `TZ`: Your timezone (see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 
-### Step 3: Prepare Data Directories
+### 3. Prepare Data Directories
 
 Create the expected directory structure (linked to your existing data):
 
@@ -57,7 +57,7 @@ ln -s /path/to/existing/movies /data/media/movies
 mkdir -p /data/media/tv /data/media/music
 ```
 
-### Step 4: Initialize Application Data Directories
+### 4. Initialize Application Data Directories
 
 ```bash
 cd ent/
@@ -68,7 +68,7 @@ sudo chown -R 1000:1000 appdata/
 chmod -R 775 appdata/
 ```
 
-### Step 5: Start the Stack
+### 5. Start the Stack
 
 ```bash
 # Start all services
@@ -81,11 +81,11 @@ docker-compose ps
 All services should show `Up` status. Check logs for any issues:
 
 ```bash
-docker-compose logs -f  # All services
-docker-compose logs -f radarr  # Specific service
+docker-compose logs -f # All services
+docker-compose logs -f radarr # Specific service
 ```
 
-### Step 6: Initialize Tailscale Access
+### 6. Initialize Tailscale Access
 
 If using TSDProxy for remote access (recommended):
 
@@ -119,27 +119,27 @@ Each service stores configuration in `./appdata/{service}/config.xml`. After ini
 
 1. Access at `http://localhost:7878` (or via Tailscale)
 2. **Settings > Media Management**:
-   - **Movie Folder**: `/data/media/movies`
-   - **Naming**:
-     - Standard: `{Movie Title} ({Release Year})/{Movie Title} ({Release Year}) - {Quality Full}`
-   - **Root Folders**: Add `/data/media`
+ - **Movie Folder**: `/data/media/movies`
+ - **Naming**:
+ - Standard: `{Movie Title} ({Release Year})/{Movie Title} ({Release Year}) - {Quality Full}`
+ - **Root Folders**: Add `/data/media`
 3. **Settings > Download Clients**:
-   - Add qBittorrent client
-   - Host: `qbittorrent`
-   - Port: `8080`
+ - Add qBittorrent client
+ - Host: `qbittorrent`
+ - Port: `8080`
 4. **Settings > Indexers**:
-   - Leave empty or add via Prowlarr integration
+ - Leave empty or add via Prowlarr integration
 
 ### Sonarr (TV Shows)
 
 1. Access at `http://localhost:8989` (or via Tailscale)
 2. **Settings > Media Management**:
-   - **TV Folder**: `/data/media/tv`
-   - **Naming**:
-     - Series: `{Series Title}`
-     - Season: `Season {season:00}`
-     - Episode: `{Series Title} - {season:00}e{episode:00} - {Episode Title} {Quality Full}`
-   - **Root Folders**: Add `/data/media`
+ - **TV Folder**: `/data/media/tv`
+ - **Naming**:
+ - Series: `{Series Title}`
+ - Season: `Season {season:00}`
+ - Episode: `{Series Title} - {season:00}e{episode:00} - {Episode Title} {Quality Full}`
+ - **Root Folders**: Add `/data/media`
 3. **Settings > Download Clients**: Add qBittorrent
 4. **Settings > Indexers**: Connect to Prowlarr
 
@@ -147,12 +147,12 @@ Each service stores configuration in `./appdata/{service}/config.xml`. After ini
 
 1. Access at `http://localhost:8686` (or via Tailscale)
 2. **Settings > Media Management**:
-   - **Music Folder**: `/data/media/music`
-   - **Naming**:
-     - Artist: `{Artist Name}`
-     - Album: `{Album Title} ({Release Year})`
-     - Track: `{track:00} - {Track Title}`
-   - **Root Folders**: Add `/data/media`
+ - **Music Folder**: `/data/media/music`
+ - **Naming**:
+ - Artist: `{Artist Name}`
+ - Album: `{Album Title} ({Release Year})`
+ - Track: `{track:00} - {Track Title}`
+ - **Root Folders**: Add `/data/media`
 3. **Settings > Download Clients**: Add qBittorrent
 4. **Settings > Metadata Provider**: Configure preferred sources
 
@@ -160,38 +160,38 @@ Each service stores configuration in `./appdata/{service}/config.xml`. After ini
 
 1. Access at `http://localhost:9696` (or via Tailscale)
 2. **Settings > Apps**:
-   - Add Radarr, Sonarr, Lidarr instances
-   - Get API keys from each service (Settings > General)
+ - Add Radarr, Sonarr, Lidarr instances
+ - Get API keys from each service (Settings > General)
 3. **Indexers**: Add your preferred torrent/usenet indexers
 
 ### Bazarr (Subtitles)
 
 1. Access at `http://localhost:6767` (or via Tailscale)
 2. **Settings > Sonarr** / **Settings > Radarr**:
-   - Enable integration
-   - Add API keys from respective services
+ - Enable integration
+ - Add API keys from respective services
 3. **Settings > Languages**: Select subtitle languages to download
 
 ### qBittorrent (Downloads)
 
 1. Access at `http://localhost:8080` (or via Tailscale)
 2. Default credentials: `admin` / `adminadmin`
-   - **Highly recommend** changing password immediately
+ - **Highly recommend** changing password immediately
 3. **Options > Downloads**:
-   - Default Save Path: `/data/torrents/`
-   - Keep torrents: Enable (for seeding)
+ - Default Save Path: `/data/torrents/`
+ - Keep torrents: Enable (for seeding)
 4. Create download categories:
-   - `movies` → `/data/torrents/movies`
-   - `tv` → `/data/torrents/tv`
-   - `music` → `/data/torrents/music`
+ - `movies` → `/data/torrents/movies`
+ - `tv` → `/data/torrents/tv`
+ - `music` → `/data/torrents/music`
 
 ### Jellyfin (Media Server)
 
 1. Access at `http://localhost:8096` (or via Tailscale)
 2. **Libraries** → Add Library:
-   - Movie Library: `/data/media/movies`
-   - TV Library: `/data/media/tv`
-   - Music Library: `/data/media/music`
+ - Movie Library: `/data/media/movies`
+ - TV Library: `/data/media/tv`
+ - Music Library: `/data/media/music`
 3. **Dashboard** → Plugins: Install preferred plugins
 4. **Playback**: Configure subtitle, audio codec preferences
 
@@ -214,11 +214,11 @@ The stack uses **Trash Guides** format for consistent organization:
 ### Movies
 ```
 /data/media/movies/
-├── Inception (2010)/
-│   ├── Inception (2010) - 1080p.mkv
-│   └── Inception (2010) - 1080p.srt
-├── The Dark Knight (2008)/
-└── Interstellar (2014)/
+ Inception (2010)/
+ Inception (2010) - 1080p.mkv
+ Inception (2010) - 1080p.srt
+ The Dark Knight (2008)/
+ Interstellar (2014)/
 ```
 
 **Radarr Naming**:
@@ -229,13 +229,13 @@ The stack uses **Trash Guides** format for consistent organization:
 ### TV Shows
 ```
 /data/media/tv/
-├── Breaking Bad/
-│   ├── Season 01/
-│   │   ├── Breaking Bad - 01e01 - Pilot [1080p].mkv
-│   │   ├── Breaking Bad - 01e02 - Cat's in the Bag [1080p].mkv
-│   │   └── ...
-│   └── Season 02/
-└── Better Call Saul/
+ Breaking Bad/
+ Season 01/
+ Breaking Bad - 01e01 - Pilot [1080p].mkv
+ Breaking Bad - 01e02 - Cat's in the Bag [1080p].mkv
+ ...
+ Season 02/
+ Better Call Saul/
 ```
 
 **Sonarr Naming**:
@@ -246,15 +246,15 @@ The stack uses **Trash Guides** format for consistent organization:
 ### Music
 ```
 /data/media/music/
-├── Taylor Swift/
-│   └── Midnights (2022)/
-│       ├── 01 - Midnight.flac
-│       ├── 02 - Karma.flac
-│       └── ...
-├── The Beatles/
-│   ├── Abbey Road (1969)/
-│   └── The White Album (1968)/
-└── Dua Lipa/
+ Taylor Swift/
+ Midnights (2022)/
+ 01 - Midnight.flac
+ 02 - Karma.flac
+ ...
+ The Beatles/
+ Abbey Road (1969)/
+ The White Album (1968)/
+ Dua Lipa/
 ```
 
 **Lidarr Naming**:
@@ -300,8 +300,8 @@ docker-compose ps
 ```bash
 # Backup all application data
 tar -czf home_media_backup_$(date +%Y%m%d_%H%M%S).tar.gz \
-  ent/appdata/ \
-  .env
+ ent/appdata/ \
+ .env
 
 # Store securely (never commit .env!)
 ```
@@ -340,26 +340,26 @@ docker-compose down -v
 ### Service Won't Start
 
 1. Check logs:
-   ```bash
-   docker-compose logs {service-name}
-   ```
+ ```bash
+ docker-compose logs {service-name}
+ ```
 
 2. Common issues:
-   - **Port already in use**: Change ports in `.env`
-   - **Permission denied**: Run `sudo chown -R 1000:1000 appdata/`
-   - **Disk space**: Check with `df -h /data`
+ - **Port already in use**: Change ports in `.env`
+ - **Permission denied**: Run `sudo chown -R 1000:1000 appdata/`
+ - **Disk space**: Check with `df -h /data`
 
 ### Downloads Not Working
 
 1. Verify qBittorrent is accessible
 2. Ensure download categories exist in qBittorrent
 3. Check Radarr/Sonarr can connect to qBittorrent:
-   - Settings > Download Clients > Test Connection
+ - Settings > Download Clients > Test Connection
 4. Verify `/data/torrents` has write permissions:
-   ```bash
-   touch /data/torrents/test.txt
-   rm /data/torrents/test.txt
-   ```
+ ```bash
+ touch /data/torrents/test.txt
+ rm /data/torrents/test.txt
+ ```
 
 ### Jellyfin Not Showing Media
 
@@ -372,26 +372,26 @@ docker-compose down -v
 
 1. Verify Tailscale is installed on host
 2. Check TSDProxy container logs:
-   ```bash
-   docker-compose logs tsdproxy
-   ```
+ ```bash
+ docker-compose logs tsdproxy
+ ```
 3. Verify auth key is valid (check Tailscale admin console)
 4. Ensure Docker socket is mounted: `docker-compose ps tsdproxy`
 
 ### API Connection Issues
 
 1. Get API keys:
-   - Radarr: Settings > General > API Key
-   - Sonarr: Settings > General > API Key
-   - Lidarr: Settings > General > API Key
+ - Radarr: Settings > General > API Key
+ - Sonarr: Settings > General > API Key
+ - Lidarr: Settings > General > API Key
 
 2. Test connection:
-   ```bash
-   curl -X GET "http://localhost:7878/api/v3/system/status?apikey=YOUR_KEY"
-   ```
+ ```bash
+ curl -X GET "http://localhost:7878/api/v3/system/status?apikey=YOUR_KEY"
+ ```
 
 3. For Prowlarr integration, ensure correct hostname:
-   - Use container name, not `localhost`: `http://radarr:7878`
+ - Use container name, not `localhost`: `http://radarr:7878`
 
 ## Advanced Configuration
 
@@ -401,15 +401,15 @@ To add additional services or integrate with other stacks:
 
 1. Edit `docker-compose.yml`
 2. Add new service with labels:
-   ```yaml
-   new-service:
-     image: your-image
-     networks:
-       - default
-     labels:
-       tsdproxy.enable: "true"
-       tsdproxy.name: "your-service-name"
-   ```
+ ```yaml
+ new-service:
+ image: your-image
+ networks:
+ - default
+ labels:
+ tsdproxy.enable: "true"
+ tsdproxy.name: "your-service-name"
+ ```
 
 3. Access at `your-service-name.YOUR_TAILSCALE_HOSTNAME`
 
@@ -465,9 +465,9 @@ Optimize for many concurrent users/downloads:
 2. Verify all prerequisites are met
 3. Test network connectivity: `docker-compose exec radarr ping sonarr`
 4. Search GitHub issues in relevant projects:
-   - Radarr: github.com/radarr/radarr
-   - Sonarr: github.com/sonarr/sonarr
-   - Jellyfin: github.com/jellyfin/jellyfin
+ - Radarr: github.com/radarr/radarr
+ - Sonarr: github.com/sonarr/sonarr
+ - Jellyfin: github.com/jellyfin/jellyfin
 
 ---
 

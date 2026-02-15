@@ -37,7 +37,7 @@ docker compose logs -f --tail=20 jellyfin | head -100
 docker compose logs | grep -i error
 
 # From specific time
-docker compose logs --since 10m  # Last 10 minutes
+docker compose logs --since 10m # Last 10 minutes
 ```
 
 ### Start/Stop Services
@@ -318,7 +318,7 @@ docker compose ps && echo "---" && tailscale status | head -3
 
 # All services responding?
 for svc in radarr sonarr lidarr jellyfin; do
-  docker compose exec $svc ping -c 1 qbittorrent && echo "$svc: OK" || echo "$svc: FAIL"
+ docker compose exec $svc ping -c 1 qbittorrent && echo "$svc: OK" || echo "$svc: FAIL"
 done
 
 # Disk space warning
@@ -359,7 +359,7 @@ cd home_media
 
 # Setup env
 cp .env.example .env
-nano .env  # Edit with your values
+nano .env # Edit with your values
 
 # Start stack
 cd ent
@@ -384,9 +384,9 @@ gpg --decrypt .env.gpg > .env
 
 # Backup entire stack (except media)
 tar -czf home_media_backup.tar.gz \
-  --exclude=ent/appdata/plex \
-  --exclude=ent/appdata/jellyfin \
-  ~/home_media/
+ --exclude=ent/appdata/plex \
+ --exclude=ent/appdata/jellyfin \
+ ~/home_media/
 ```
 
 ## Performance Tuning
@@ -406,13 +406,13 @@ docker stats --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}"
 
 # Set resource limits (edit docker-compose.yml)
 # deploy:
-#   resources:
-#     limits:
-#       cpus: '1.5'
-#       memory: 2G
-#     reservations:
-#       cpus: '0.5'
-#       memory: 512M
+# resources:
+# limits:
+# cpus: '1.5'
+# memory: 2G
+# reservations:
+# cpus: '0.5'
+# memory: 512M
 ```
 
 ## Emergency Procedures

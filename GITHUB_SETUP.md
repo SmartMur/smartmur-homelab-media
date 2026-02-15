@@ -8,8 +8,8 @@ Your local repository is ready! Follow these steps to connect to GitHub.
 2. Repository name: `home_media` (or your preferred name)
 3. Description: "Production-ready self-hosted media server stack with Tailscale security"
 4. **Choose visibility**: 
-   - ✅ **PUBLIC** - Share with community (recommended, no secrets exposed)
-   - 🔒 Private - If you prefer
+ - **PUBLIC** - Share with community (recommended, no secrets exposed)
+ - Private - If you prefer
 5. **DO NOT initialize** with README, .gitignore, or license (we already have them)
 6. Click "Create repository"
 
@@ -36,11 +36,11 @@ git push -u origin main
 
 - Visit: https://github.com/YOUR_USERNAME/home_media
 - Confirm you see:
-  - ✅ All documentation files (README.md, DEPLOYMENT.md, etc.)
-  - ✅ Docker compose files
-  - ✅ health_check.sh script
-  - ❌ NO .env file (should be hidden)
-  - ❌ NO appdata/ folders (should be hidden)
+ - All documentation files (README.md, DEPLOYMENT.md, etc.)
+ - Docker compose files
+ - health_check.sh script
+ - NO .env file (should be hidden)
+ - NO appdata/ folders (should be hidden)
 
 ## Step 4: Add GitHub Files (Optional but Recommended)
 
@@ -79,17 +79,17 @@ Create these files on GitHub for better visibility:
 ## Step 5: Add Repository Topics (GitHub Page)
 
 On your repository page:
-1. Click "⚙️ Settings"
+1. Click " Settings"
 2. Scroll to "Topics"
 3. Add tags for discovery:
-   - `self-hosted`
-   - `docker`
-   - `media-server`
-   - `tailscale`
-   - `radarr`
-   - `sonarr`
-   - `jellyfin`
-   - `plex`
+ - `self-hosted`
+ - `docker`
+ - `media-server`
+ - `tailscale`
+ - `radarr`
+ - `sonarr`
+ - `jellyfin`
+ - `plex`
 
 ## Step 6: Update README Links
 
@@ -116,7 +116,7 @@ To push updates:
 cd ~/home_media
 
 # Make changes
-nano README.md  # or edit any file
+nano README.md # or edit any file
 
 # Commit
 git add .
@@ -165,11 +165,11 @@ Once live, you can share:
 - **Raw README**: https://github.com/YOUR_USERNAME/home_media/blob/main/README.md
 - **Deployment guide**: https://github.com/YOUR_USERNAME/home_media/blob/main/DEPLOYMENT.md
 - **Share on**: 
-  - r/selfhosted
-  - r/homeserver
-  - Hacker News
-  - Twitter/X
-  - Discord servers (Servarr, Jellyfin, etc.)
+ - r/selfhosted
+ - r/homeserver
+ - Hacker News
+ - Twitter/X
+ - Discord servers (Servarr, Jellyfin, etc.)
 
 ## License (Optional)
 
@@ -198,7 +198,7 @@ If you encounter issues:
 
 ---
 
-**Repository Status**: ✅ Ready for GitHub  
-**Security Level**: 🔒 All secrets protected  
-**Documentation**: 📚 Complete (3,110+ lines)  
+**Repository Status**: Ready for GitHub 
+**Security Level**: All secrets protected 
+**Documentation**: Complete (3,110+ lines) 
 **Next**: Push to GitHub and share with the community!

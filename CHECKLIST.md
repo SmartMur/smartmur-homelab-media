@@ -4,7 +4,7 @@ Quick reference checklist for deploying the Home Media Server stack.
 
 ---
 
-## 🔧 PRE-DEPLOYMENT (Fresh Linux Server)
+## PRE-DEPLOYMENT (Fresh Linux Server)
 
 ### System Preparation
 - [ ] Ubuntu 20.04+ installed
@@ -25,7 +25,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo usermod -aG docker $USER
 newgrp docker
-docker ps  # Should work without sudo
+docker ps # Should work without sudo
 ```
 - [ ] Docker installed & working
 - [ ] User added to docker group
@@ -43,7 +43,7 @@ sudo tailscale up
 ```bash
 sudo ufw allow 22/tcp
 sudo ufw enable
-sudo ufw status  # Should show: active, Port 22/tcp allow
+sudo ufw status # Should show: active, Port 22/tcp allow
 ```
 - [ ] UFW enabled
 - [ ] SSH access allowed
@@ -60,7 +60,7 @@ sudo chmod -R 755 /data
 
 ---
 
-## 📦 REPOSITORY SETUP
+## REPOSITORY SETUP
 
 ### Clone Repository
 ```bash
@@ -76,7 +76,7 @@ cd home_media
 ### Configure Environment
 ```bash
 cp .env.example .env
-nano .env  # Edit these values:
+nano .env # Edit these values:
 ```
 
 **Required Values to Set:**
@@ -100,13 +100,13 @@ chmod -R 775 appdata/
 
 ---
 
-## 🚀 LAUNCH STACK
+## LAUNCH STACK
 
 ### Start Services
 ```bash
 docker compose pull
 docker compose up -d
-docker compose ps  # All containers should show "Up"
+docker compose ps # All containers should show "Up"
 ```
 - [ ] All containers started
 - [ ] All showing "Up" status
@@ -127,7 +127,7 @@ chmod +x ../health_check.sh
 
 ---
 
-## 🔐 SECURITY SETUP (Follow in Order)
+## SECURITY SETUP (Follow in Order)
 
 ### 1. qBittorrent (CRITICAL - Do First!)
 ```bash
@@ -136,8 +136,8 @@ chmod +x ../health_check.sh
 ```
 - [ ] Logged in with default credentials
 - [ ] Changed username and password
-  - Tools → Options → Web UI → Authentication
-  - ✅ "Require authentication" enabled
+ - Tools → Options → Web UI → Authentication
+ - "Require authentication" enabled
 - [ ] Container restarted: `docker compose restart qbittorrent`
 
 ### 2. Jellyfin (Setup User Account)
@@ -162,12 +162,12 @@ chmod +x ../health_check.sh
 
 ### 4. Plex (If Using)
 - [ ] Method A: Claim token in .env (recommended)
-  - [ ] Plex account linked
-  - [ ] Libraries visible
+ - [ ] Plex account linked
+ - [ ] Libraries visible
 - [ ] OR Method B: Manual setup
-  - [ ] Accessed via Tailscale
-  - [ ] Account linked
-  - [ ] Libraries configured
+ - [ ] Accessed via Tailscale
+ - [ ] Account linked
+ - [ ] Libraries configured
 
 ### 5. Radarr/Sonarr/Lidarr/Readarr (Optional Passwords)
 ```bash
@@ -193,7 +193,7 @@ chmod +x ../health_check.sh
 
 ---
 
-## ✅ FINAL VERIFICATION
+## FINAL VERIFICATION
 
 ### Service Access Test
 - [ ] Jellyseerr accessible via Tailscale
@@ -222,7 +222,7 @@ sudo netstat -tlnp | grep docker
 
 ---
 
-## 📚 DOCUMENTATION
+## DOCUMENTATION
 
 ### Bookmark These
 - [ ] [INDEX.md](INDEX.md) - Documentation hub
@@ -236,7 +236,7 @@ sudo netstat -tlnp | grep docker
 
 ---
 
-## 🆘 TROUBLESHOOTING
+## TROUBLESHOOTING
 
 ### Container Won't Start
 1. Check logs: `docker compose logs service_name`
@@ -259,21 +259,21 @@ sudo netstat -tlnp | grep docker
 
 ---
 
-## 📋 MAINTENANCE NOTES
+## MAINTENANCE NOTES
 
 ### Things That Should NOT Be Exposed
-- ✅ qBittorrent (Tailscale only)
-- ✅ Jellyfin (Tailscale only)
-- ✅ Radarr (Tailscale only)
-- ✅ Sonarr (Tailscale only)
-- ✅ Termix (Tailscale only)
-- ✅ Dockhand (Tailscale only)
+- qBittorrent (Tailscale only)
+- Jellyfin (Tailscale only)
+- Radarr (Tailscale only)
+- Sonarr (Tailscale only)
+- Termix (Tailscale only)
+- Dockhand (Tailscale only)
 
 ### Critical Files
-- ⚠️ `.env` - NEVER commit to git (in .gitignore)
-- ⚠️ `appdata/` - Contains configurations (in .gitignore)
-- ✅ `.env.example` - Safe to commit
-- ✅ Docker compose files - Safe to commit
+- `.env` - NEVER commit to git (in .gitignore)
+- `appdata/` - Contains configurations (in .gitignore)
+- `.env.example` - Safe to commit
+- Docker compose files - Safe to commit
 
 ### Emergency Contacts
 - **Servarr Discord**: https://discord.gg/servarr
@@ -282,13 +282,13 @@ sudo netstat -tlnp | grep docker
 
 ---
 
-## 📅 DEPLOYMENT DATE
+## DEPLOYMENT DATE
 
-**Date Started**: _____________  
-**Date Completed**: _____________  
-**System**: _______________ (Ubuntu version)  
-**Tailscale IP**: _______________  
-**Disk Capacity**: _______________  
+**Date Started**: _____________ 
+**Date Completed**: _____________ 
+**System**: _______________ (Ubuntu version) 
+**Tailscale IP**: _______________ 
+**Disk Capacity**: _______________ 
 
 ---
 

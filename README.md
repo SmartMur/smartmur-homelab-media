@@ -2,7 +2,7 @@
 
 Complete Docker-based self-hosted media server stack with secure configuration management.
 
-## 📖 Documentation
+## Documentation
 
 **Start here**: [INDEX.md](INDEX.md) - Complete guide to all documentation
 
@@ -16,7 +16,7 @@ Or jump to:
 ## Stack Components
 
 - **Radarr** - Movies management and automation
-- **Sonarr** - TV shows management and automation  
+- **Sonarr** - TV shows management and automation 
 - **Lidarr** - Music management and automation
 - **Readarr** - Books/Ebooks management and automation
 - **Prowlarr** - Centralized indexer manager
@@ -36,44 +36,44 @@ See [SETUP.md](SETUP.md) for detailed configuration instructions.
 
 1. Clone this repository
 2. Copy `.env.example` to `.env` and fill in your values:
-   ```bash
-   cp .env.example .env
-   ```
+ ```bash
+ cp .env.example .env
+ ```
 3. Ensure your data directories exist:
-   ```bash
-   mkdir -p /data/media/{movies,tv,music}
-   mkdir -p /data/torrents/{movies,tv,music}
-   ```
+ ```bash
+ mkdir -p /data/media/{movies,tv,music}
+ mkdir -p /data/torrents/{movies,tv,music}
+ ```
 4. Start the stack:
-   ```bash
-   cd ent/
-   docker-compose up -d
-   ```
+ ```bash
+ cd ent/
+ docker-compose up -d
+ ```
 
 ## Directory Structure
 
 ```
 home_media/
-├── ent/                          # Main media server stack
-│   ├── docker-compose.yml        # Main compose definition
-│   └── appdata/                  # Application config volumes
-│       ├── radarr/
-│       ├── sonarr/
-│       ├── lidarr/
-│       ├── bazarr/
-│       ├── prowlarr/
-│       ├── qbittorrent/
-│       ├── jellyfin/
-│       ├── termix/
-│       └── dockhand/
-├── dockhand/                     # Standalone Docker UI (optional)
-├── tails/                        # Utility services (optional)
-├── termix/                       # Standalone terminal (optional)
-├── .env.example                  # Configuration template (public)
-├── .env                          # Your secrets (local only, .gitignore'd)
-├── .gitignore                    # Prevent accidental secret commits
-├── README.md                     # This file
-└── SETUP.md                      # Detailed setup guide
+ ent/ # Main media server stack
+ docker-compose.yml # Main compose definition
+ appdata/ # Application config volumes
+ radarr/
+ sonarr/
+ lidarr/
+ bazarr/
+ prowlarr/
+ qbittorrent/
+ jellyfin/
+ termix/
+ dockhand/
+ dockhand/ # Standalone Docker UI (optional)
+ tails/ # Utility services (optional)
+ termix/ # Standalone terminal (optional)
+ .env.example # Configuration template (public)
+ .env # Your secrets (local only, .gitignore'd)
+ .gitignore # Prevent accidental secret commits
+ README.md # This file
+ SETUP.md # Detailed setup guide
 ```
 
 ## External Data Structure
@@ -82,15 +82,15 @@ This stack expects the following structure in `/data`:
 
 ```
 /data/
-├── media/                        # Final organized media
-│   ├── movies/                   # Movies in format: Title (Year)/
-│   ├── tv/                       # TV shows in format: Series/Season NN/
-│   └── music/                    # Music in format: Artist/Album (Year)/
-├── torrents/                     # Download staging (organized by type)
-│   ├── movies/
-│   ├── tv/
-│   └── music/
-└── download/                     # (optional) Raw download directory
+ media/ # Final organized media
+ movies/ # Movies in format: Title (Year)/
+ tv/ # TV shows in format: Series/Season NN/
+ music/ # Music in format: Artist/Album (Year)/
+ torrents/ # Download staging (organized by type)
+ movies/
+ tv/
+ music/
+ download/ # (optional) Raw download directory
 ```
 
 ## Security Notes
@@ -101,19 +101,19 @@ This stack expects the following structure in `/data`:
 - Internal network isolation prevents unauthorized access
 
 ### Authentication Status
-- ✅ **Secured**: Jellyfin (user accounts), Plex (Plex account), Radarr/Sonarr/Lidarr/Readarr (API keys)
-- ⚠️ **Manual Setup Required**: qBittorrent (change default credentials immediately)
-- ⚠️ **Recommend Password**: Prowlarr, Bazarr (no built-in auth, add via Settings)
-- 🔴 **No Auth Available**: Termix, Dockhand (rely on Tailscale network access only)
+- **Secured**: Jellyfin (user accounts), Plex (Plex account), Radarr/Sonarr/Lidarr/Readarr (API keys)
+- **Manual Setup Required**: qBittorrent (change default credentials immediately)
+- **Recommend Password**: Prowlarr, Bazarr (no built-in auth, add via Settings)
+- **No Auth Available**: Termix, Dockhand (rely on Tailscale network access only)
 
 ### Best Practices
 1. **Secrets Management**: All sensitive values (.env) excluded from git via .gitignore
 2. **Tailscale Mandatory**: Deploy only within Tailscale network - no port forwarding
 3. **First Run Setup**: 
-   - Change qBittorrent admin password immediately
-   - Create Jellyfin user account on first access
-   - Link Plex account or use claim token
-   - Disable Termix/Dockhand if not actively used
+ - Change qBittorrent admin password immediately
+ - Create Jellyfin user account on first access
+ - Link Plex account or use claim token
+ - Disable Termix/Dockhand if not actively used
 4. **Network Security**: Services isolated on internal Docker network, no direct internet exposure
 
 ## Services Quick Links (via Tailscale)

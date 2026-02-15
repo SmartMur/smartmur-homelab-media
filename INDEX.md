@@ -4,7 +4,7 @@ Complete guide to all documentation files. **Start here if you're new!**
 
 ---
 
-## 🚀 Getting Started (Pick Your Path)
+## Getting Started (Pick Your Path)
 
 ### Path 1: Quick Start (Existing Docker System)
 **You already have Docker, Tailscale, and Linux set up**
@@ -23,10 +23,10 @@ Complete guide to all documentation files. **Start here if you're new!**
 **You have a bare Linux server and need everything**
 
 1. Read: [DEPLOYMENT.md](DEPLOYMENT.md) - Complete system setup
-   - System preparation (Docker, Tailscale, UFW)
-   - Clone and configure
-   - Launch and verify
-   - Health monitoring
+ - System preparation (Docker, Tailscale, UFW)
+ - Clone and configure
+ - Launch and verify
+ - Health monitoring
 
 2. Then follow Path 1 (Security setup)
 
@@ -48,7 +48,7 @@ chmod +x health_check.sh
 
 ---
 
-## 📚 Documentation Files
+## Documentation Files
 
 ### **README.md**
 - What this stack is (12 services)
@@ -57,39 +57,39 @@ chmod +x health_check.sh
 - Quick start guide
 - **Start here!**
 
-### **DEPLOYMENT.md** ⭐ NEW - COMPREHENSIVE
+### **DEPLOYMENT.md** NEW - COMPREHENSIVE
 Complete production deployment guide covering:
 - **Part 1**: System Preparation
-  - Docker Engine installation
-  - Tailscale setup
-  - UFW firewall configuration
-  - Data directory creation
+ - Docker Engine installation
+ - Tailscale setup
+ - UFW firewall configuration
+ - Data directory creation
 
 - **Part 2**: Repository Setup
-  - Clone from GitHub (wget & git methods)
-  - Environment configuration
-  - Application data directories
+ - Clone from GitHub (wget & git methods)
+ - Environment configuration
+ - Application data directories
 
 - **Part 3**: Launch Stack
-  - Starting services
-  - Verification steps
+ - Starting services
+ - Verification steps
 
 - **Part 4**: Health Monitoring
-  - Essential health check commands
-  - Automated health check script
-  - Resource monitoring
+ - Essential health check commands
+ - Automated health check script
+ - Resource monitoring
 
 - **Part 5**: Post-Deployment
-  - Service access methods
-  - First-run checklist
+ - Service access methods
+ - First-run checklist
 
 - **Part 6**: Maintenance
-  - Daily/Weekly/Monthly tasks
-  - Quarterly backups
+ - Daily/Weekly/Monthly tasks
+ - Quarterly backups
 
 - **Part 7**: Troubleshooting
-  - Common issues & solutions
-  - Recovery procedures
+ - Common issues & solutions
+ - Recovery procedures
 
 - **Part 8**: Security Verification
 - **Part 9**: Backup & Disaster Recovery
@@ -113,16 +113,16 @@ Legacy setup guide (see DEPLOYMENT.md for fuller version):
 - Configuration options
 - Initial verification
 
-### **COMMANDS.md** ⭐ NEW - REFERENCE
+### **COMMANDS.md** NEW - REFERENCE
 Quick lookup for commands:
 - **Docker Commands**: ps, logs, exec, stop, start, etc.
 - **System Commands**: disk usage, permissions, networking
 - **Troubleshooting Scenarios**: 
-  - Container won't start
-  - Services can't reach each other
-  - Permission denied errors
-  - Out of disk space
-  - Tailscale not connecting
+ - Container won't start
+ - Services can't reach each other
+ - Permission denied errors
+ - Out of disk space
+ - Tailscale not connecting
 - **One-liners**: Quick health checks
 - **Backup & Recovery**: Backup commands
 
@@ -135,7 +135,7 @@ Quick lookup for commands:
 - Configuration commands
 - Quick command reference
 
-### **health_check.sh** ⭐ NEW - AUTOMATED
+### **health_check.sh** NEW - AUTOMATED
 Executable bash script that runs automated health checks:
 - Container status
 - Disk space
@@ -149,7 +149,7 @@ Executable bash script that runs automated health checks:
 ./health_check.sh
 ```
 
-### **CHECKLIST.md** ⭐ NEW - PRINTABLE
+### **CHECKLIST.md** NEW - PRINTABLE
 Print-friendly deployment checklist covering:
 - Pre-deployment system setup
 - Repository setup
@@ -163,7 +163,7 @@ Print-friendly deployment checklist covering:
 
 ---
 
-## 🔍 Find Information By Topic
+## Find Information By Topic
 
 ### Installation & Setup
 - First time? → [DEPLOYMENT.md](DEPLOYMENT.md) (Part 1-3)
@@ -207,7 +207,7 @@ Print-friendly deployment checklist covering:
 
 ---
 
-## 📋 Checklists
+## Checklists
 
 ### Pre-Deployment Checklist
 - [ ] Read [README.md](README.md)
@@ -245,7 +245,7 @@ Print-friendly deployment checklist covering:
 
 ---
 
-## 🔗 External Resources
+## External Resources
 
 ### Official Documentation
 - **Docker Docs**: https://docs.docker.com/
@@ -270,42 +270,42 @@ Print-friendly deployment checklist covering:
 
 ---
 
-## 💡 Tips & Best Practices
+## Tips & Best Practices
 
 ### Security
-✅ **DO**:
+ **DO**:
 - Keep .env file secret (it's in .gitignore)
 - Use Tailscale for all access (no port forwarding)
 - Change default passwords immediately
 - Monitor access logs regularly
 
-❌ **DON'T**:
+ **DON'T**:
 - Expose services to the internet
 - Share Tailscale access broadly
 - Keep default passwords
 - Commit .env to git
 
 ### Performance
-✅ **DO**:
+ **DO**:
 - Monitor disk usage weekly
 - Set up automated backups
 - Check logs for errors
 - Update images monthly
 
-❌ **DON'T**:
+ **DON'T**:
 - Run with insufficient disk space
 - Ignore error logs
 - Forget to backup configs
 - Let media library grow unmanaged
 
 ### Maintenance
-✅ **DO**:
+ **DO**:
 - Run `./health_check.sh` weekly
 - Keep docker images updated
 - Document custom configs
 - Test recovery procedures
 
-❌ **DON'T**:
+ **DON'T**:
 - Stop containers abruptly (use compose down)
 - Delete appdata without backup
 - Run as root unnecessarily
@@ -313,7 +313,7 @@ Print-friendly deployment checklist covering:
 
 ---
 
-## 🆘 Need Help?
+## Need Help?
 
 1. **First check**: Run `./health_check.sh` to identify issues
 2. **Check logs**: `docker compose logs -f service_name`
@@ -323,7 +323,7 @@ Print-friendly deployment checklist covering:
 
 ---
 
-## 📄 File Reference
+## File Reference
 
 | File | Purpose | When to Read |
 |------|---------|--------------|
@@ -341,7 +341,7 @@ Print-friendly deployment checklist covering:
 
 ---
 
-## 🗓️ Recommended Reading Order
+## Recommended Reading Order
 
 ### For Complete Beginners
 1. [README.md](README.md) - 5 min
@@ -363,6 +363,6 @@ Print-friendly deployment checklist covering:
 
 ---
 
-**Last Updated**: February 14, 2026  
-**Status**: Production-Ready  
+**Last Updated**: February 14, 2026 
+**Status**: Production-Ready 
 **Next**: Start with [README.md](README.md) or [DEPLOYMENT.md](DEPLOYMENT.md) depending on your setup!

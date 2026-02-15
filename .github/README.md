@@ -6,7 +6,7 @@ Production-ready Docker Compose setup for a complete, secure, self-hosted media 
 ![Security: Configured](https://img.shields.io/badge/Security-Hardened-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
 
-## 🎬 What You Get
+## What You Get
 
 A complete self-hosted media management ecosystem with 10 services:
 
@@ -23,7 +23,7 @@ A complete self-hosted media management ecosystem with 10 services:
 
 All services are **pre-configured** with Trash Guides media organization standard.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -41,7 +41,7 @@ cd home-media-server
 
 # 2. Configure secrets
 cp .env.example .env
-nano .env  # Fill in Tailscale auth key and hostname
+nano .env # Fill in Tailscale auth key and hostname
 
 # 3. Prepare data directories
 mkdir -p /data/media/{movies,tv,music}
@@ -58,45 +58,45 @@ docker-compose up -d
 
 See **[DEPLOYMENT.md](.github/DEPLOYMENT.md)** for detailed setup instructions.
 
-## 📖 Documentation
+## Documentation
 
 - **[README.md](README.md)** - Overview and repository structure
 - **[SETUP.md](SETUP.md)** - Comprehensive setup guide (770+ lines)
 - **[DEPLOYMENT.md](.github/DEPLOYMENT.md)** - GitHub deployment instructions
 - **[QUICKREF.md](QUICKREF.md)** - Quick reference for common commands
 
-## 🔐 Security
+## Security
 
 This repository follows security best practices:
 
-✅ **No hardcoded secrets** - All sensitive values in `.env` (excluded from git)
-✅ **Environment variables** - Docker Compose uses `${VAR}` substitution
-✅ **Comprehensive .gitignore** - Prevents accidental secret commits
-✅ **Tailscale integration** - VPN-based access, no port forwarding needed
-✅ **Volume isolation** - Application data separated from configuration
+ **No hardcoded secrets** - All sensitive values in `.env` (excluded from git)
+ **Environment variables** - Docker Compose uses `${VAR}` substitution
+ **Comprehensive .gitignore** - Prevents accidental secret commits
+ **Tailscale integration** - VPN-based access, no port forwarding needed
+ **Volume isolation** - Application data separated from configuration
 
 **Important**: Never commit your `.env` file to git!
 
-## 📁 Structure
+## Structure
 
 ```
 home-media-server/
-├── ent/                              # Main media server stack
-│   ├── docker-compose.yml            # 10 services definition
-│   └── appdata/                      # Config volumes
-├── dockhand/                         # Docker UI (optional)
-├── tails/                            # Utilities (optional)
-├── termix/                           # Web terminal (optional)
-├── .env.example                      # Configuration template
-├── .gitignore                        # Prevent secret commits
-├── README.md                         # Overview
-├── SETUP.md                          # Setup guide
-├── QUICKREF.md                       # Command reference
-└── .github/
-    └── DEPLOYMENT.md                 # Deployment guide
+ ent/ # Main media server stack
+ docker-compose.yml # 10 services definition
+ appdata/ # Config volumes
+ dockhand/ # Docker UI (optional)
+ tails/ # Utilities (optional)
+ termix/ # Web terminal (optional)
+ .env.example # Configuration template
+ .gitignore # Prevent secret commits
+ README.md # Overview
+ SETUP.md # Setup guide
+ QUICKREF.md # Command reference
+ .github/
+ DEPLOYMENT.md # Deployment guide
 ```
 
-## 🎯 Key Features
+## Key Features
 
 ### Pre-Configured Services
 All services are configured to work together out-of-the-box:
@@ -110,9 +110,9 @@ All services are configured to work together out-of-the-box:
 Follows **Trash Guides** standard for consistent organization:
 ```
 /data/media/
-├── movies/           # Title (Year)/
-├── tv/              # Series/Season NN/
-└── music/           # Artist/Album (Year)/
+ movies/ # Title (Year)/
+ tv/ # Series/Season NN/
+ music/ # Artist/Album (Year)/
 ```
 
 ### Secure Remote Access
@@ -126,7 +126,7 @@ Follows **Trash Guides** standard for consistent organization:
 - Pre-configured volume mounts
 - Automatic Tailscale integration
 
-## 🔧 Services Overview
+## Services Overview
 
 | Service | Purpose | Default Port | TSDProxy |
 |---------|---------|--------------|----------|
@@ -141,21 +141,21 @@ Follows **Trash Guides** standard for consistent organization:
 | **Dockhand** | Docker UI | 3000 | dockhand |
 | **TSDProxy** | Reverse proxy | - | - |
 
-## 💾 Data Structure
+## Data Structure
 
 ```
 /data/
-├── media/                # Final organized media
-│   ├── movies/          # Auto-organized by Radarr
-│   ├── tv/              # Auto-organized by Sonarr
-│   └── music/           # Auto-organized by Lidarr
-└── torrents/            # Download staging
-    ├── movies/
-    ├── tv/
-    └── music/
+ media/ # Final organized media
+ movies/ # Auto-organized by Radarr
+ tv/ # Auto-organized by Sonarr
+ music/ # Auto-organized by Lidarr
+ torrents/ # Download staging
+ movies/
+ tv/
+ music/
 ```
 
-## 🛠️ Common Commands
+## Common Commands
 
 ```bash
 # Start/stop the stack
@@ -174,7 +174,7 @@ tar -czf backup.tar.gz ent/appdata .env
 
 See **[QUICKREF.md](QUICKREF.md)** for more commands.
 
-## 🌍 Remote Access
+## Remote Access
 
 Services are accessible via Tailscale at:
 - `radarr.your-hostname.ts.net`
@@ -184,7 +184,7 @@ Services are accessible via Tailscale at:
 
 (Requires Tailscale installation on server and clients)
 
-## 🔑 Configuration
+## Configuration
 
 All configuration is managed via `.env` file:
 
@@ -205,7 +205,7 @@ JELLYFIN_PORT=8096
 
 See `.env.example` for all available options.
 
-## 📋 Requirements
+## Requirements
 
 - **Docker**: 20.10+
 - **Docker Compose**: 2.0+
@@ -214,7 +214,7 @@ See `.env.example` for all available options.
 - **Storage**: 20GB+ (depends on media size)
 - **Network**: Internet connection
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Services won't start?
 ```bash
@@ -235,24 +235,24 @@ sudo chown -R 1000:1000 /data
 
 For more help, see **[SETUP.md](SETUP.md)**.
 
-## 📚 Detailed Guides
+## Detailed Guides
 
 - **First time setup?** → [DEPLOYMENT.md](.github/DEPLOYMENT.md)
 - **Need detailed instructions?** → [SETUP.md](SETUP.md)
 - **Just need quick commands?** → [QUICKREF.md](QUICKREF.md)
 
-## 🤝 Contributing
+## Contributing
 
 Found an issue or have improvements? 
 1. Check existing issues
 2. Create a detailed bug report or feature request
 3. Submit a pull request
 
-## 📄 License
+## License
 
 [MIT License](LICENSE) - Use freely for personal use
 
-## 🙏 Credits
+## Credits
 
 Built with:
 - [Radarr](https://radarr.video/)

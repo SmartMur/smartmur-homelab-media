@@ -10,10 +10,10 @@ This stack prioritizes security with Tailscale-only access (no internet port exp
 1. Access: `https://qbittorrent.YOUR_TAILSCALE_IP`
 2. Login with: `admin` / `adminpass`
 3. **IMMEDIATELY** change password:
-   - Tools → Options → Web UI
-   - Set "Username" and "Password"
-   - Check "Require authentication"
-   - Apply and save
+ - Tools → Options → Web UI
+ - Set "Username" and "Password"
+ - Check "Require authentication"
+ - Apply and save
 4. Restart container: `docker-compose restart qbittorrent`
 
 ### 2. Jellyfin (User Accounts)
@@ -48,15 +48,15 @@ This stack prioritizes security with Tailscale-only access (no internet port exp
 1. Access: `https://jellyseerr.YOUR_TAILSCALE_IP`
 2. First access shows setup wizard
 3. Link Jellyfin instance:
-   - Jellyfin URL: `http://jellyfin:8096` (internal Docker network)
-   - API Key: Get from Jellyfin Admin → Dashboard → API Keys
+ - Jellyfin URL: `http://jellyfin:8096` (internal Docker network)
+ - API Key: Get from Jellyfin Admin → Dashboard → API Keys
 4. Link Radarr:
-   - Server URL: `http://radarr:7878`
-   - API Key: Get from Radarr Settings → General
-   - Quality Profile: Select your preferred quality
+ - Server URL: `http://radarr:7878`
+ - API Key: Get from Radarr Settings → General
+ - Quality Profile: Select your preferred quality
 5. Link Sonarr:
-   - Server URL: `http://sonarr:8989`
-   - API Key: Get from Sonarr Settings → General
+ - Server URL: `http://sonarr:8989`
+ - API Key: Get from Sonarr Settings → General
 6. Create Jellyseerr user account for yourself
 7. Share Jellyseerr link with family members who can request media
 
@@ -94,7 +94,7 @@ This stack prioritizes security with Tailscale-only access (no internet port exp
 
 ### 7. Termix & Dockhand (Use with Caution)
 
-**⚠️ WARNING: These provide system-level access without built-in authentication**
+** WARNING: These provide system-level access without built-in authentication**
 
 **Secure Option 1: Disable in Production**
 - Comment out or remove these services from docker-compose.yml if not needed
@@ -114,34 +114,34 @@ This stack prioritizes security with Tailscale-only access (no internet port exp
 
 ### Jellyseerr Configuration (First!)
 1. **Link Jellyfin**: Settings → Jellyfin
-   - URL: `http://jellyfin:8096`
-   - API Key: Get from Jellyfin Admin → Dashboard
+ - URL: `http://jellyfin:8096`
+ - API Key: Get from Jellyfin Admin → Dashboard
 2. **Link Radarr**: Settings → Services → Radarr
-   - URL: `http://radarr:7878`
-   - API Key: Get from Radarr Settings → General
+ - URL: `http://radarr:7878`
+ - API Key: Get from Radarr Settings → General
 3. **Link Sonarr**: Settings → Services → Sonarr
-   - URL: `http://sonarr:8989`
-   - API Key: Get from Sonarr Settings → General
+ - URL: `http://sonarr:8989`
+ - API Key: Get from Sonarr Settings → General
 4. **Link Readarr**: Settings → Services → Readarr
-   - URL: `http://readarr:8787`
-   - API Key: Get from Readarr Settings → General
+ - URL: `http://readarr:8787`
+ - API Key: Get from Readarr Settings → General
 5. Create user account for yourself
 
 ### Prowlarr → Radarr/Sonarr/Lidarr/Readarr
 1. In Prowlarr: Settings → Apps
 2. Add each arr service:
-   - Sync Level: Add and Remove
-   - Server: `http://radarr:7878` (internal Docker network)
-   - API Key: Get from each app's Settings → General
+ - Sync Level: Add and Remove
+ - Server: `http://radarr:7878` (internal Docker network)
+ - API Key: Get from each app's Settings → General
 3. Test connection
 
 ### qBittorrent → Radarr/Sonarr/Lidarr/Readarr
 1. In each arr app: Settings → Download Clients
 2. Add qBittorrent:
-   - Host: `qbittorrent` (Docker network)
-   - Port: `8080` (internal)
-   - Username: qBittorrent UI credentials
-   - Test connection
+ - Host: `qbittorrent` (Docker network)
+ - Port: `8080` (internal)
+ - Username: qBittorrent UI credentials
+ - Test connection
 
 ### Bazarr → Radarr/Sonarr
 1. In Bazarr: Settings → Sonarr / Radarr
@@ -166,37 +166,37 @@ This stack prioritizes security with Tailscale-only access (no internet port exp
 
 ```
 User's Device
-     ↓ (Tailscale VPN)
+ ↓ (Tailscale VPN)
 Tailscale Network
-     ↓
+ ↓
 TSDProxy Container (Authentication via Tailscale)
-     ↓
+ ↓
 Internal arr_network (Docker)
-     ├── Radarr (port 7878)
-     ├── Sonarr (port 8989)
-     ├── Lidarr (port 8686)
-     ├── Readarr (port 8787)
-     ├── Jellyfin (port 8096)
-     ├── Plex (port 32400)
-     ├── Prowlarr (port 9696)
-     ├── qBittorrent (port 8080)
-     ├── Bazarr (port 6767)
-     ├── Termix (port 8080)
-     └── Dockhand (port 3000)
+ Radarr (port 7878)
+ Sonarr (port 8989)
+ Lidarr (port 8686)
+ Readarr (port 8787)
+ Jellyfin (port 8096)
+ Plex (port 32400)
+ Prowlarr (port 9696)
+ qBittorrent (port 8080)
+ Bazarr (port 6767)
+ Termix (port 8080)
+ Dockhand (port 3000)
 
-NO PORTS EXPOSED TO INTERNET ✓
+NO PORTS EXPOSED TO INTERNET 
 ```
 
 ## Environment Variables Checklist
 
 ```bash
 # Critical - Must set before first run
-PUID=1000                          # Your user ID
-PGID=1000                          # Your group ID
-TZ=America/Toronto                 # Your timezone
-TSDPROXY_AUTHKEY=tskey-auth-...   # Tailscale auth (25min - must regenerate)
-TSDPROXY_HOSTNAME=100.0.0.1       # Your Tailscale server IP
-PLEX_CLAIM_TOKEN=claim-...        # Plex claim token (optional, 4min lifespan)
+PUID=1000 # Your user ID
+PGID=1000 # Your group ID
+TZ=America/Toronto # Your timezone
+TSDPROXY_AUTHKEY=tskey-auth-... # Tailscale auth (25min - must regenerate)
+TSDPROXY_HOSTNAME=100.0.0.1 # Your Tailscale server IP
+PLEX_CLAIM_TOKEN=claim-... # Plex claim token (optional, 4min lifespan)
 ```
 
 ## Monitoring & Logs

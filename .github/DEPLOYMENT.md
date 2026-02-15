@@ -45,15 +45,15 @@ nano .env
 
 **Tailscale Configuration** (for remote access):
 1. Get auth key: https://login.tailscale.com/admin/settings/keys
-   - Click "Generate auth key..."
-   - Copy the key and paste into `.env` as `TSDPROXY_AUTHKEY`
+ - Click "Generate auth key..."
+ - Copy the key and paste into `.env` as `TSDPROXY_AUTHKEY`
 
 2. Get your server's Tailscale IP:
-   ```bash
-   # After Tailscale is running on your server:
-   tailscale ip -4
-   ```
-   - Use this IP for `TSDPROXY_HOSTNAME`
+ ```bash
+ # After Tailscale is running on your server:
+ tailscale ip -4
+ ```
+ - Use this IP for `TSDPROXY_HOSTNAME`
 
 **Example .env**:
 ```bash
@@ -221,14 +221,14 @@ docker system df
 ### TSDProxy Not Connecting
 
 1. Verify Tailscale is installed and running:
-   ```bash
-   tailscale status
-   ```
+ ```bash
+ tailscale status
+ ```
 
 2. Check auth key is valid:
-   ```bash
-   docker-compose logs tsdproxy | grep auth
-   ```
+ ```bash
+ docker-compose logs tsdproxy | grep auth
+ ```
 
 3. Manually approve if needed (check TSDProxy logs for URL)
 
@@ -258,8 +258,8 @@ docker system df
 ```bash
 # Create backup of all settings
 tar -czf home_media_backup_$(date +%Y%m%d).tar.gz \
-  ent/appdata/ \
-  .env
+ ent/appdata/ \
+ .env
 
 # Store securely (encrypted backup)
 ```
@@ -324,15 +324,15 @@ docker-compose up -d
 2. Review Docker logs: `docker-compose logs {service}`
 3. Search GitHub issues: https://github.com/YOUR_USERNAME/home-media-server/issues
 4. Consult service documentation:
-   - **Radarr**: https://wiki.servarr.com/radarr
-   - **Sonarr**: https://wiki.servarr.com/sonarr
-   - **Jellyfin**: https://jellyfin.org/docs/
-   - **Tailscale**: https://tailscale.com/kb/
+ - **Radarr**: https://wiki.servarr.com/radarr
+ - **Sonarr**: https://wiki.servarr.com/sonarr
+ - **Jellyfin**: https://jellyfin.org/docs/
+ - **Tailscale**: https://tailscale.com/kb/
 
 ## Next Steps
 
-1. ✅ Deployed stack
-2. ✅ Configured Tailscale access
+1. Deployed stack
+2. Configured Tailscale access
 3. → Configure each service (see SETUP.md)
 4. → Add media to libraries
 5. → Enjoy your media!
