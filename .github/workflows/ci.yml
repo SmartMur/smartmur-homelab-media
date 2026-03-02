@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Validate YAML
+        run: |
+          pip install yamllint
+          find . -name '*.yml' -o -name '*.yaml' | xargs yamllint -d relaxed || true
+      - name: Validate Docker Compose files
+        run: |
+          for f in $(find . -name 'docker-compose*.yml' -o -name 'docker-compose*.yaml'); do
+            echo "Checking $f..."
+            docker compose -f "$f" config --quiet 2>&1 || echo "WARNING: $f has issues"
+          done
+      - name: ShellCheck
+        run: |
+          sudo apt-get install -y shellcheck
+          find . -name '*.sh' -exec shellcheck {} + || true
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Gitleaks secret scan
+        uses: gitleaks/gitleaks-action@44c470ffc35caa8b1eb3e8012ca53c2f9bea4eb5 # v2.3.7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

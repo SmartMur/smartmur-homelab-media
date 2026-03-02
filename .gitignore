@@ -1,0 +1,34 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Application data (contains configs with API keys)
+**/appdata/
+**/config/
+**/cache/
+
+# Docker
+docker-compose.override.yml
+
+# OS files
+.DS_Store
+*.swp
+*~
+Thumbs.db
+
+# Credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.kdbx
+
+# Logs
+*.log
+logs/
+
+# Database files
+*.db
+*.sqlite
