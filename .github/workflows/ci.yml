@@ -44,6 +44,6 @@ jobs:
         run: echo "Skipping gitleaks on pull_request event."
       - name: Gitleaks secret scan
         if: github.event_name != 'pull_request'
-        uses: gitleaks/gitleaks-action@44c470ffc35caa8b1eb3e8012ca53c2f9bea4eb5 # v2.3.7
+        uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
