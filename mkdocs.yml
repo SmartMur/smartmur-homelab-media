@@ -6,8 +6,8 @@ repo_name: SmartMur/smartmur-homelab-media
 
 theme:
   name: material
-  logo: assets/smartmur-logo.svg
-  favicon: assets/smartmur-logo.svg
+  logo: assets/smartmur-logo.png
+  favicon: assets/smartmur-logo.png
   icon:
     repo: fontawesome/brands/github
   palette:
