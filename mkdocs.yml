@@ -1,0 +1,67 @@
+site_name: SmartMur Homelab Media
+site_description: Self-hosted Docker media server stack — Plex, Jellyfin, Sonarr, Radarr, and automated content management.
+site_url: https://smartmur.github.io/smartmur-homelab-media/
+repo_url: https://github.com/SmartMur/smartmur-homelab-media
+repo_name: SmartMur/smartmur-homelab-media
+
+theme:
+  name: material
+  logo: assets/smartmur-logo.svg
+  favicon: assets/smartmur-logo.svg
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - pymdownx.snippets
+  - admonition
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Overview: getting-started/index.md
+      - Setup Guide: guides/setup.md
+      - Deployment: guides/deployment.md
+  - Reference:
+      - Commands: reference/commands.md
+      - Quick Reference: reference/quickref.md
+      - Security: reference/security.md
+      - Health Check: reference/checklist.md
