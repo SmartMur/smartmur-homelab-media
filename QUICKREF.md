@@ -96,15 +96,15 @@ Replace `YOUR_HOSTNAME` with your Tailscale hostname (e.g., `my-server.tail12345
 ```bash
 # Radarr
 curl -X GET "http://localhost:7878/api/v3/system/status" \
- -H "X-Api-Key: YOUR_API_KEY"
+ -H "X-Api-Key: <API_KEY>"
 
 # Sonarr
 curl -X GET "http://localhost:8989/api/v3/system/status" \
- -H "X-Api-Key: YOUR_API_KEY"
+ -H "X-Api-Key: <API_KEY>"
 
 # Lidarr
 curl -X GET "http://localhost:8686/api/v1/system/status" \
- -H "X-Api-Key: YOUR_API_KEY"
+ -H "X-Api-Key: <API_KEY>"
 ```
 
 ### Set Radarr Movie Folder
@@ -113,7 +113,7 @@ Via API:
 ```bash
 curl -X POST "http://localhost:7878/api/v3/rootfolder" \
  -H "Content-Type: application/json" \
- -H "X-Api-Key: YOUR_API_KEY" \
+ -H "X-Api-Key: <API_KEY>" \
  -d '{"path": "/data/media/movies"}'
 ```
 
